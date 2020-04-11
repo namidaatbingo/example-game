@@ -7,7 +7,7 @@ public class area
     int areaNumber { get; set; }
     string areaName;
 
-    public void area(int areaNumber, String areaName)
+    public area(int areaNumber, string areaName)
     {
         this.areaNumber = areaNumber;
         this.areaName = areaName;

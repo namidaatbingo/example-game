@@ -6,10 +6,10 @@ public class border
 {
     location startPoint { get; set; }
     location endPoint { get; set; }
-    int upperArea { get; set; }
-    int lowerArea { get; set; }
+    area upperArea { get; set; }
+    area lowerArea { get; set; }
 
-    public void border(location startPoint, location endPoint, int upperArea, int lowerArea)
+    public border(location startPoint, location endPoint, area upperArea, area lowerArea)
     {
         this.startPoint = startPoint;
         this.endPoint = endPoint;

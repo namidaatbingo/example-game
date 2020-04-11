@@ -7,7 +7,7 @@ public class location
     double latitude { get; set; }
     double longitude { get; set; }
 
-    start(double latitude, double longitude)
+    public location(double latitude, double longitude)
     {
         this.latitude = latitude;
         this.longitude = longitude;
