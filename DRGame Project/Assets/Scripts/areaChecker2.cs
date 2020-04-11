@@ -9,24 +9,57 @@ public class areaChecker2 : MonoBehaviour
     border[] borders;
     location currentLocation;
 
+    border northBorder, southBorder;
+
     // Start is called before the first frame update
     void Start()
     {
         makeAreas();
         makeLocations();
         makeBorders();
-
+        northBorder = new border(new location(90, 0), new location(90, 0));
+        southBorder = new border(new location(-90, 0), new location(90, 0));
     }
 
     // Update is called once per frame
     void Update()
     {
+        double lngStart, latStart, lngEnd, latEnd, latitudeOnBorder, difference;
+
         //現在位置をとってくる
-        //35.625665,139.884419
+        //test lat-long 35.625665,139.884419
         currentLocation = new location(35.625665, 139.884419);
-        //現在位置からエリアを割り出す
-            //bordersの持っている経度（SとE）を取得⇒locationsから取得？
-            // S<currentX<E に該当するbordersを取得
+
+        for(int i=0;i<borders.Length;i++)
+        {
+            // get location data of start and end point of checked border
+            lngStart = borders[i].getstartPoint().getlongitude(); 
+            latStart = borders[i].getstartPoint().getlatiude();
+            lngEnd = borders[i].getendPoint().getlongitude();
+            latEnd = borders[i].getendPoint().getlatitude();
+
+            // check
+            if (lngStart < currentLocation.getlongitude()
+                && currentLocation.getlongitude() < lngEnd)
+            {
+                // calculate target latitude on checked border
+                latitudeOnBorder = (latEnd - latStart)(lngStart - lngStart) / (lngEnd - lngStart) + latEnd;
+                   
+                // calculate difference of latitude between currentLocation and checked border
+                difference = latitudeOnBorder - currentLocation.getlatitude();
+                
+                // compare dif with north border
+                if (difference > 0 
+                    && difference < (northBorder.getlatitude() - currentLocation.getlatitude()))
+                { northBorder = borders[i]; }
+                // compare dif with south border
+                else if (difference < 0
+                    && difference > (southBorder.getlatitude() - currentLocation.getlatitude()))
+                { southBorder = borders[i]; }
+            }
+        }
+
+        // judge area by south and north norder
 
 
         //割り出したエリアをテキストボックスに表示させる
